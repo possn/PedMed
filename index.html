@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PedMedMonitor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="icon.png">
+    <link rel="manifest" href="manifest.json">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.5/dist/chart.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>PedMedMonitor</h1>
+        <form id="patientForm">
+            <h2>Dados do Doente</h2>
+            <label>Nome: <input type="text" id="patientName"></label>
+            <label>ID: <input type="text" id="patientId"></label>
+            <label>Peso (kg): <input type="number" id="weight" step="0.1" required></label>
+            <label>Idade:
+                <select id="ageUnit">
+                    <option value="days">Dias</option>
+                    <option value="months">Meses</option>
+                    <option value="years">Anos</option>
+                </select>
+                <input type="number" id="ageValue" step="0.1" required>
+            </label>
+            <label>Creatinina Sérica (mg/dL): <input type="number" id="creatinine" step="0.01" required></label>
+
+            <h2>Antibiótico</h2>
+            <label>Selecionar:
+                <select id="antibiotic">
+                    <option value="vancomycin_intermittent">Vancomicina (Intermitente)</option>
+                    <option value="vancomycin_continuous">Vancomicina (Perfusão)</option>
+                    <option value="gentamicin">Gentamicina</option>
+                    <option value="amikacin">Amicacina</option>
+                    <option value="tobramycin">Tobramicina</option>
+                </select>
+            </label>
+            <label>Dose (mg): <input type="number" id="dose" step="1" required></label>
+            <label>Intervalo (hrs): <input type="number" id="interval" step="1" required></label>
+
+            <h2>Doseamento</h2>
+            <label>Valor (µg/mL): <input type="number" id="level" step="0.1"></label>
+            <label>Tipo:
+                <select id="levelType">
+                    <option value="peak">Pico</option>
+                    <option value="trough">Vale</option>
+                    <option value="random">Random</option>
+                </select>
+            </label>
+            <label id="randomTimeLabel" class="hidden">Horas desde última dose: <input type="number" id="randomTime" step="0.1"></label>
+            <button type="submit">Calcular</button>
+        </form>
+
+        <div id="results" class="results hidden">
+            <h2>Resultados</h2>
+            <p id="doseStatus"></p>
+            <p id="doseSuggestion"></p>
+            <p id="pkParameters"></p>
+            <canvas id="pkChart"></canvas>
+            <button id="generatePdf">Gerar PDF</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
